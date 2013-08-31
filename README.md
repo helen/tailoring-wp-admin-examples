@@ -1,6 +1,6 @@
 # Custom Tailoring the WordPress Admin Experience
 
-This repository contains code examples for some of the examples contained in various presentations I've given. Rather than publishing static code examples or individual Gists, this will allow the code to continue on as an ever-improving and easy-to-view collection of examples in the realm of tailoring the WordPress admin while maintaining a history of changes. Together with [some](http://wordpress.tv/2013/08/11/helen-hou-sandi-custom-tailoring-the-wordpress-admin-experience/) [videos](http://www.youtube.com/watch?v=krL7SXu0YSc), [slide](http://hyhs.me/wcsf2013) [decks](http://hyhs.me/wpnyc2013), and (currently in-progress) blog post, I hope that this will serve as a helpful resource for all those interested.
+This repository contains code examples for some of the examples contained in various presentations I've given. Rather than publishing static code snippets or individual Gists, this will allow the code to continue on as a collected reference on tailoring the WordPress admin with a clear history of changes and a familiar collaboration model. Together with [some](http://wordpress.tv/2013/08/11/helen-hou-sandi-custom-tailoring-the-wordpress-admin-experience/) [videos](http://www.youtube.com/watch?v=krL7SXu0YSc), [slide](http://hyhs.me/wcsf2013) [decks](http://hyhs.me/wpnyc2013), and (currently in-progress) blog post, I hope that this will serve as a helpful resource for all those interested.
 
 ## Structure and Style
 
