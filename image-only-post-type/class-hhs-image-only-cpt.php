@@ -19,6 +19,7 @@ class HHS_Image_Only_CPT {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'register_post_type' ) );
+		add_filter( 'post_updated_messages',             array( $this, 'slide_messages' ) );
 		add_filter( 'admin_post_thumbnail_html', array( $this, 'admin_post_thumbnail_html' ), 10, 2 );
 		add_filter( 'media_view_strings', array( $this, 'media_view_strings' ), 10, 2 );
 		add_filter( 'manage_edit-slide_columns', array( $this, 'manage_edit_columns' ) );
@@ -54,6 +55,39 @@ class HHS_Image_Only_CPT {
 			'supports' => array( 'thumbnail' ),
 			'register_meta_box_cb' => array( $this, 'meta_boxes' ),
 		) );
+	}
+
+	/**
+	 * Adjust messages from 'post'-specific to 'slide'-specific
+	 *
+	 * @param array $messages The messages strings array.
+	 *
+	 * @global WP_Post $post    The post object.
+	 * @global int     $post_ID The post id.
+	 *
+	 * @return array The messages strings array.
+	 */
+	public function slide_messages( $messages = array() ) {
+		global $post, $post_ID;
+
+		$messages['slide'] = array(
+			0  => '', // Unused. Messages start at index 1.
+			1  => sprintf( __( 'Slide updated. <a href="%s">View slide</a>.', 'textdomain' ), esc_url( get_permalink( $post_ID ) ) ),
+			2  => __( 'Custom field updated.', 'textdomain' ),
+			3  => __( 'Custom field deleted.', 'textdomain' ),
+			4  => __( 'Slide updated.', 'textdomain' ),
+			/* translators: %s: date and time of the revision */
+			5  => isset( $_GET['revision'] ) ? sprintf( __( 'Slide restored to revision from %s', 'textdomain' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			6  => sprintf( __( 'Slide published. <a href="%s">View slide</a>', 'textdomain' ), esc_url( get_permalink( $post_ID ) ) ),
+			7  => __( 'Slide saved.', 'textdomain' ),
+			8  => sprintf( __( 'Slide submitted. <a target="_blank" href="%s">Preview slide</a>', 'textdomain' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
+			9  => sprintf( __( 'Slide scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview slide</a>', 'textdomain' ),
+				// translators: Publish box date format, see http://php.net/date
+				date_i18n( __( 'M j, Y @ G:i', 'textdomain' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) ) ),
+			10 => sprintf( __( 'Slide draft updated. <a target="_blank" href="%s">Preview slide</a>', 'textdomain' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
+		);
+
+		return $messages;
 	}
 
 	/**
