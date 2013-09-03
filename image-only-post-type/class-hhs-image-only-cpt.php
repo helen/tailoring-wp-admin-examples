@@ -27,6 +27,7 @@ class HHS_Image_Only_CPT {
 
 	/**
 	 * Register our custom post type of slide.
+	 *
 	 * @return void
 	 */
 	public function register_post_type() {
@@ -57,9 +58,12 @@ class HHS_Image_Only_CPT {
 	}
 
 	/**
-	 * Remove the post thumbnail meta box from its default side position
-	 * and move it to the main column, relabeling it appropriately
-	 * in the process.
+	 * Move the post thumbnail meta box
+	 *
+	 * Removes the post thumbnail meta box from its default
+	 * side position and move it to the main column, relabeling
+	 * it appropriately in the process.
+	 *
 	 * @return void
 	 */
 	public function meta_boxes() {
@@ -69,11 +73,15 @@ class HHS_Image_Only_CPT {
 	}
 
 	/**
-	 * Replace some pieces inside the post thumbnail meta box
-	 * to make it more specific to the usage.
+	 * Customize the 'Set|Remove featured image' text
+	 *
+	 * Replace some pieces inside the post thumbnail meta
+	 * box to make it more specific to the usage.
+	 *
 	 * @param string $output  Inner HTML of the post thumbnail meta box.
-	 * @param int $post_id ID of the currently edited post.
-	 * @return string
+	 * @param int    $post_id ID of the currently edited post.
+	 *
+	 * @return string The altered string(s).
 	 */
 	public function admin_post_thumbnail_html( $output, $post_id ) {
 		$post_type = get_post_type( $post_id );
@@ -88,11 +96,15 @@ class HHS_Image_Only_CPT {
 	}
 
 	/**
+	 * Modify media modal text to 'Set slide image'
+	 *
 	 * Set some of the strings in the 3.5+ media modal to be
 	 * specific to the usage of selecting a slide image.
-	 * @param array $strings Array of strings for the media modal.
-	 * @param object $post   Post object.
-	 * @return array
+	 *
+	 * @param array  $strings Array of strings for the media modal.
+	 * @param object $post    Post object.
+	 *
+	 * @return array The array of strings.
 	 */
 	public function media_view_strings( $strings, $post ) {
 		if ( 'slide' === get_post_type( $post ) ) {
@@ -104,9 +116,11 @@ class HHS_Image_Only_CPT {
 	}
 
 	/**
-	 * Set the columns to be only what's necessary.
+	 * Set the columns to be only what's necessary
+	 *
 	 * @param array $columns Columns for the list table.
-	 * @return array
+	 *
+	 * @return array The columns array.
 	 */
 	public function manage_edit_columns( $columns ) {
 		$columns = array(
@@ -118,9 +132,11 @@ class HHS_Image_Only_CPT {
 	}
 
 	/**
-	 * Post-specific display for any custom columns in the list table.
-	 * @param string $column Key of the column.
-	 * @param int $post_id ID of the post in question.
+	 * Post-specific display for any custom columns in the list table
+	 *
+	 * @param string $column  Key of the column.
+	 * @param int    $post_id ID of the post in question.
+	 *
 	 * @return void
 	 */
 	public function custom_edit_columns( $column, $post_id ) {
