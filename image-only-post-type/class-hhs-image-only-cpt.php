@@ -18,10 +18,10 @@ class HHS_Image_Only_CPT {
 	 * Set up various hook callbacks
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'register_post_type' ) );
-		add_filter( 'admin_post_thumbnail_html', array( $this, 'admin_post_thumbnail_html' ), 10, 2 );
-		add_filter( 'media_view_strings', array( $this, 'media_view_strings' ), 10, 2 );
-		add_filter( 'manage_edit-slide_columns', array( $this, 'manage_edit_columns' ) );
+		add_action( 'init',                              array( $this, 'register_post_type' ) );
+		add_filter( 'admin_post_thumbnail_html',         array( $this, 'admin_post_thumbnail_html' ), 10, 2 );
+		add_filter( 'media_view_strings',                array( $this, 'media_view_strings' ), 10, 2 );
+		add_filter( 'manage_edit-slide_columns',         array( $this, 'manage_edit_columns' ) );
 		add_action( 'manage_slide_posts_custom_column',  array( $this, 'custom_edit_columns' ), 10, 2 );
 	}
 
@@ -32,27 +32,27 @@ class HHS_Image_Only_CPT {
 	 */
 	public function register_post_type() {
 		$labels = array(
-		    'name' => _x( 'Slide', 'post type general name' ),
-		    'singular_name' => _x( 'Slide', 'post type singular name' ),
-		    'add_new' => _x( 'Add Slide', 'slide' ),
-		    'add_new_item' => __( 'Add New Slide' ),
-		    'edit_item' => __( 'Edit Slide' ),
-		    'new_item' => __( 'New Slide' ),
-		    'view_item' => __( 'View Slides' ),
-		    'search_items' => __( 'Search Slides' ),
-		    'not_found' =>  __( 'No Slides found' ),
-		    'not_found_in_trash' => __( 'No Slides found in Trash' ),
-		    'parent_item_colon' => '',
+		    'name'               => _x( 'Slide', 'post type general name', 'textdomain' ),
+		    'singular_name'      => _x( 'Slide', 'post type singular name',  'textdomain' ),
+		    'add_new'            => _x( 'Add Slide', 'slide', 'textdomain' ),
+		    'add_new_item'       => __( 'Add New Slide', 'textdomain' ),
+		    'edit_item'          => __( 'Edit Slide', 'textdomain' ),
+		    'new_item'           => __( 'New Slide', 'textdomain' ),
+		    'view_item'          => __( 'View Slides', 'textdomain' ),
+		    'search_items'       => __( 'Search Slides', 'textdomain' ),
+		    'not_found'          => __( 'No Slides found', 'textdomain' ),
+		    'not_found_in_trash' => __( 'No Slides found in Trash', 'textdomain' ),
+		    'parent_item_colon'  => '',
 		);
 
 		register_post_type( 'slide', array (
-			'label' => __( 'Slides' ),
-			'labels' => $labels,
-			'show_in_menu' => 'themes.php', // we don't need a whole top level menu item
-			'show_in_nav_menus' => false,
-			'exclude_from_search' => true,
-			'hierarchical' => true, // for ease of ordering
-			'supports' => array( 'thumbnail' ),
+			'label'                => __( 'Slides', 'textdomain' ),
+			'labels'               => $labels,
+			'show_in_menu'         => 'themes.php', // we don't need a whole top level menu item
+			'show_in_nav_menus'    => false,
+			'exclude_from_search'  => true,
+			'hierarchical'         => true, // for ease of ordering
+			'supports'             => array( 'thumbnail' ),
 			'register_meta_box_cb' => array( $this, 'meta_boxes' ),
 		) );
 	}
@@ -108,8 +108,8 @@ class HHS_Image_Only_CPT {
 	 */
 	public function media_view_strings( $strings, $post ) {
 		if ( 'slide' === get_post_type( $post ) ) {
-			$strings['setFeaturedImageTitle'] = 'Set slide image';
-			$strings['setFeaturedImage'] = 'Set slide image';
+			$strings['setFeaturedImageTitle'] = __( 'Set slide image', 'textdomain' );
+			$strings['setFeaturedImage']      = __( 'Set slide image', 'textdomain' );
 		}
 
 		return $strings;
@@ -124,8 +124,8 @@ class HHS_Image_Only_CPT {
 	 */
 	public function manage_edit_columns( $columns ) {
 		$columns = array(
-			'cb' => '<input type="checkbox" />',
-			'thumbnail' => 'Slide',
+			'cb'        => '<input type="checkbox" />',
+			'thumbnail' => __( 'Slide', 'textdomain' ),
 		);
 
 		return $columns;
@@ -145,7 +145,7 @@ class HHS_Image_Only_CPT {
 				if ( has_post_thumbnail( $post_id ) )
 					the_post_thumbnail( $post_id );
 				else
-					echo 'No image';
+					echo __( 'No image', 'textdomain' );
 
 				// add row_action links for Edit and Trash because there's no title column
 				$post_type = get_post_type( $post_id );
@@ -167,7 +167,8 @@ class HHS_Image_Only_CPT {
 
 				$action_count = count( $actions );
 				$i = 0;
-				$out = '<div class="row-actions">'; // change class to row-actions-visible to make them always visible rather than on hover
+				// change class to row-actions-visible to make them always visible rather than on hover
+				$out = '<div class="row-actions">';
 				foreach ( $actions as $action => $link ) {
 					$i++;
 					( $i == $action_count ) ? $sep = '' : $sep = ' | ';
